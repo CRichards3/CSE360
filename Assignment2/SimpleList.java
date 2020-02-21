@@ -1,4 +1,4 @@
-package assign1;
+package assign2;
 
 /**
  * Connor Richards
@@ -35,10 +35,8 @@ public class SimpleList {
      * @param num the number to be added to the list
      */
     public void add(int num) {
-        if(count == 10) {
-            // Array is full. Take off last element to make room
-            list[count - 1] = 0;
-            count--;
+        if(count == list.length) {
+            increaseListSize();
         }
         for(int index = count - 1; index >= 0; index--) {
             list[index + 1] = list[index];    // Shift elements to the right
@@ -58,7 +56,7 @@ public class SimpleList {
         boolean foundEleToRemove = false;
         for(int index = 0; index < count; index++) {
             if(foundEleToRemove) {
-                if(index + 1 == 10) {
+                if(index + 1 == list.length) {
                     //Handle index out of bounds exception
                     list[index] = 0;
 
@@ -75,6 +73,10 @@ public class SimpleList {
         if(foundEleToRemove) count--;
 
         if(search(num) != -1) remove(num);
+        double percentEmpty = (double) size() / (double) list.length;
+        if(percentEmpty > .25) {
+            //TODO: Decrease the size of the list?
+        }
     }
 
     /**
@@ -117,4 +119,48 @@ public class SimpleList {
         }
         return foundIndex;
     }
+
+    /**
+     * Appends a num to the list
+     @param num the number to add
+     */
+    public void append(int num) {
+        if(count == list.length) {
+            increaseListSize();
+        }
+        list[count] = num;
+        count++;
+    }
+
+    /**
+     * Returns first num in list
+     * @return First number in list
+     */ 
+    public int first() {
+        return list[0];
+    }
+
+    /**
+     * Returns number of empty spots in list
+     * @return number of empty spaces in the list
+     */
+    public int size() {
+        return list.length - count;
+    }
+
+    private void increaseListSize() {
+        int currentLength = list.length;
+        int newLength = (int) (currentLength + Math.round((double) currentLength / 2));
+        int newList[] = new int[newLength];
+        for(int i=0; i<count; i++) {
+            newList[i] = list[i];
+        }
+        list = newList;
+    }
+
+    //**** HELPER METHOD DELETE BEFORE SUBMIT *****//
+    public int[] getList() {
+        return list;
+    }
+
 }
