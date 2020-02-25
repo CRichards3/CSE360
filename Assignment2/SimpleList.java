@@ -1,8 +1,10 @@
+import java.util;
+
 package assign2;
 
 /**
  * Connor Richards
- * Assignment 1
+ * Assignment 2
  * Class ID: 137
  * Description: This file contains the class SimpleList. The class represents a list and provides
  * methods such as add, remove, count, search, and toString to allow operations and visualization of the list.
@@ -72,10 +74,11 @@ public class SimpleList {
         }
         if(foundEleToRemove) count--;
 
-        if(search(num) != -1) remove(num);
-        double percentEmpty = (double) size() / (double) list.length;
-        if(percentEmpty > .25) {
-            //TODO: Decrease the size of the list?
+        if(search(num) != -1) remove(num);      //remove all occurrences
+
+        //Check how many spots are empty
+        if(count < list.length * 3/4) {
+            list = Arrays.copyOf(list, list.length * 3/4);
         }
     }
 
@@ -148,19 +151,15 @@ public class SimpleList {
         return list.length - count;
     }
 
+    /**
+    * Increases the list size by 50%
+     */
     private void increaseListSize() {
-        int currentLength = list.length;
-        int newLength = (int) (currentLength + Math.round((double) currentLength / 2));
-        int newList[] = new int[newLength];
-        for(int i=0; i<count; i++) {
-            newList[i] = list[i];
-        }
-        list = newList;
+       list = Arrays.copyOf(list, list.length + list.length / 2)
     }
 
     //**** HELPER METHOD DELETE BEFORE SUBMIT *****//
     public int[] getList() {
         return list;
     }
-
 }
