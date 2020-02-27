@@ -198,7 +198,7 @@ public class SimpleListTest {
     @Test
     public void testFirst1() {
         SimpleList list = new SimpleList();
-        assertEquals(0, list.first());      //first element should always be 0
+        assertEquals(-1, list.first());      //first element should always be 0
     }
 
     @Test
